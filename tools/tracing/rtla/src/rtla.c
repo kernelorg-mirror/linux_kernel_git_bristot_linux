@@ -3,6 +3,8 @@
  * Copyright (C) 2021 Red Hat Inc, Daniel Bristot de Oliveira <bristot@kernel.org>
  */
 
+/* test */
+
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
