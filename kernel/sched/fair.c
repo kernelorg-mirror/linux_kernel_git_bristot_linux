@@ -6726,8 +6726,12 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	 */
 	util_est_enqueue(&rq->cfs, p);
 
-	if (!rq->cfs.h_nr_running)
+	if (!rq->cfs.h_nr_running) {
+		/* Account for idle runtime */
+		if (!rq->nr_running)
+			dl_server_update_idle_time(rq, rq->curr);
 		dl_server_start(&rq->fair_server);
+	}
 
 	/*
 	 * If in_iowait is set, the code below may not trigger any cpufreq
