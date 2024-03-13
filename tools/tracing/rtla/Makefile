@@ -34,7 +34,7 @@ include $(srctree)/tools/scripts/Makefile.include
 include Makefile.rtla
 
 # check for dependencies only on required targets
-NON_CONFIG_TARGETS := clean install
+NON_CONFIG_TARGETS := clean install tarball doc doc_clean doc_install
 
 config		:= 1
 ifdef MAKECMDGOALS
