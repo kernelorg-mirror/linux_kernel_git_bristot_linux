@@ -32,9 +32,22 @@ endif
 all: $(LATENCY-COLLECTOR)
 
 include $(srctree)/tools/build/Makefile.include
-include $(srctree)/tools/build/Makefile.feature
 include $(srctree)/tools/scripts/Makefile.include
-include Makefile.config
+
+# check for dependencies only on required targets
+NON_CONFIG_TARGETS := clean install
+
+config		:= 1
+ifdef MAKECMDGOALS
+ifeq ($(filter-out $(NON_CONFIG_TARGETS),$(MAKECMDGOALS)),)
+ config		:= 0
+endif
+endif
+
+ifeq ($(config),1)
+  include $(srctree)/tools/build/Makefile.feature
+  include Makefile.config
+endif
 
 CFLAGS		+= $(INCLUDES) $(LIB_INCLUDES)
 
@@ -64,5 +77,4 @@ clean:
 	$(Q)find . -name '*.o' -delete -o -name '\.*.cmd' -delete -o -name '\.*.d' -delete
 	$(Q)@rm -f latency-collector fixdep FEATURE-DUMP
 	$(Q)rm -rf feature
-
 .PHONY: FORCE clean install
