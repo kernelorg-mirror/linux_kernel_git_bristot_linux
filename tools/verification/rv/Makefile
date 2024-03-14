@@ -6,8 +6,22 @@ ifeq ($(srctree),)
   srctree	:= $(patsubst %/,%,$(dir $(srctree)))
 endif
 
+include $(srctree)/tools/scripts/Makefile.include
+
+# O is an alias for OUTPUT
+OUTPUT          := $(O)
+
 ifeq ($(OUTPUT),)
-  OUTPUT	:= $(CURDIR)/
+  OUTPUT       := $(CURDIR)/
+else
+  # subdir is used by the ../Makefile in $(call descend,)
+  ifneq ($(subdir),)
+    OUTPUT        := $(OUTPUT)/$(subdir)
+  endif
+endif
+
+ifneq ($(patsubst %/,,$(lastword $(OUTPUT))),)
+  OUTPUT := $(OUTPUT)/
 endif
 
 RV		:= $(OUTPUT)rv
@@ -30,7 +44,6 @@ endif
 all: $(RV)
 
 include $(srctree)/tools/build/Makefile.include
-include $(srctree)/tools/scripts/Makefile.include
 include Makefile.rv
 
 # check for dependencies only on required targets
