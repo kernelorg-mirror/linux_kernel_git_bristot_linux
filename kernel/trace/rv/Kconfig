@@ -50,6 +50,17 @@ config RV_MON_WWNR
 	  For further information, see:
 	    Documentation/trace/rv/monitor_wwnr.rst
 
+config RV_MON_DUMMY
+	depends on RV
+	select DA_MON_EVENTS_IMPLICIT
+	depends on DUMMY_DRIVER
+	bool "dummy monitor"
+	help
+	  dummy example.
+
+	  For further information, see:
+	    Documentation/trace/rv/dummy.rst.
+
 config RV_REACTORS
 	bool "Runtime verification reactors"
 	default y

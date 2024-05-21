@@ -66,6 +66,15 @@ DEFINE_EVENT(error_da_monitor, error_wip,
 	     TP_PROTO(char *state, char *event),
 	     TP_ARGS(state, event));
 #endif /* CONFIG_RV_MON_WIP */
+#ifdef CONFIG_RV_MON_DUMMY
+DEFINE_EVENT(event_da_monitor, event_dummy,
+	    TP_PROTO(char *state, char *event, char *next_state, bool final_state),
+	    TP_ARGS(state, event, next_state, final_state));
+
+DEFINE_EVENT(error_da_monitor, error_dummy,
+	     TP_PROTO(char *state, char *event),
+	     TP_ARGS(state, event));
+#endif /* CONFIG_RV_MON_DUMMY */
 #endif /* CONFIG_DA_MON_EVENTS_IMPLICIT */
 
 #ifdef CONFIG_DA_MON_EVENTS_ID
