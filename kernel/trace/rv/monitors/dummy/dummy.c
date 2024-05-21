@@ -15,6 +15,8 @@
 
 #include "dummy.h"
 
+#define MAX_VALUE 100
+
 static struct rv_monitor rv_dummy;
 DECLARE_DA_MON_GLOBAL(dummy, unsigned char);
 
@@ -28,9 +30,12 @@ void handle_dummy_open(void)
 	da_handle_start_run_event_dummy(dummy_open_dummy);
 }
 
-void handle_dummy_write(void)
+void handle_dummy_write(unsigned long long value)
 {
-	da_handle_event_dummy(dummy_write_dummy);
+	if (value < MAX_VALUE)
+		da_handle_event_dummy(dummy_write_dummy);
+	else
+		da_handle_event_dummy(dummy_invalid_dummy);
 }
 
 static int enable_dummy(void)

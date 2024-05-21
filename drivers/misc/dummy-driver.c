@@ -20,7 +20,7 @@ dummy_parameter_write(struct file *filp, const char __user *ubuf,
 	if (err)
 		return err;
 
-	handle_dummy_write();
+	handle_dummy_write(value);
 
 	parameter = value;
 

@@ -14,6 +14,7 @@ enum states_dummy {
 
 enum events_dummy {
 	dummy_close_dummy = 0,
+	dummy_invalid_dummy,
 	dummy_open_dummy,
 	dummy_write_dummy,
 	event_max_dummy
@@ -34,12 +35,13 @@ static const struct automaton_dummy automaton_dummy = {
 	},
 	.event_names = {
 		"dummy_close",
+		"dummy_invalid",
 		"dummy_open",
 		"dummy_write"
 	},
 	.function = {
-		{       INVALID_STATE,          open_dummy,       INVALID_STATE },
-		{        closed_dummy,       INVALID_STATE,          open_dummy },
+		{       INVALID_STATE,        closed_dummy,          open_dummy,       INVALID_STATE },
+		{        closed_dummy,       INVALID_STATE,       INVALID_STATE,          open_dummy },
 	},
 	.initial_state = closed_dummy,
 	.final_states = { 1, 0 },
