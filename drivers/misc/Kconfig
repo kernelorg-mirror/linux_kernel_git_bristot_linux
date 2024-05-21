@@ -58,6 +58,7 @@ config DUMMY_IRQ
 	  which spurious IRQs would happen on disabled IRQ vector.
 
 config DUMMY_DRIVER
+	select RV_MON_DUMMY
 	bool "Dummy Driver"
 	help
 	  As dummy as it can be.

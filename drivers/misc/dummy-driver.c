@@ -2,6 +2,7 @@
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/debugfs.h>
+#include <rv/dummy_monitor.h>
 
 #define MODULE_NAME "dummy_driver"
 
@@ -18,6 +19,8 @@ dummy_parameter_write(struct file *filp, const char __user *ubuf,
 	err = kstrtoull_from_user(ubuf, cnt, 10, &value);
 	if (err)
 		return err;
+
+	handle_dummy_write();
 
 	parameter = value;
 
@@ -38,6 +41,8 @@ static int dummy_parameter_open(struct inode *inode, struct file *filp)
 	retval = single_open(filp, dummy_parameter_show, inode->i_private);
 	if (retval)
 		printk("Error opening dummy driver\n");
+	else
+		handle_dummy_open();
 
 	return retval;
 }
@@ -49,6 +54,8 @@ static int dummy_parameter_release(struct inode *inode, struct file *file)
 	retval = single_release(inode, file);
 	if (retval)
 		printk("Error relasing dummy driver\n");
+	else
+		handle_dummy_close();
 
 	return retval;
 }

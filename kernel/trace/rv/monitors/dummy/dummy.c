@@ -25,7 +25,7 @@ void handle_dummy_close(void)
 
 void handle_dummy_open(void)
 {
-	da_handle_event_dummy(dummy_open_dummy);
+	da_handle_start_run_event_dummy(dummy_open_dummy);
 }
 
 void handle_dummy_write(void)
